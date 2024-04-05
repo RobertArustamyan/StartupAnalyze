@@ -3,6 +3,10 @@ import pandas as pd
 
 
 class IndustryAnalyzing:
+    '''
+    A class for analyzing industry-related data of companies.
+    '''
+
     def __init__(self, dataframe: pd.DataFrame):
         '''
         Initializes the IndustryAnalyzing object by loading a dataset.
@@ -11,7 +15,10 @@ class IndustryAnalyzing:
         self.df = dataframe
 
     @property
-    def _unique_industry_values(self):
+    def _unique_industry_values(self) -> list:
+        '''
+         Returns a list of unique industry values from the 'Industry of company' column.
+         '''
         unique_values = set()
         filtered_df = self.df.dropna(subset=['Industry of company'])
         for cell in filtered_df['Industry of company']:
@@ -21,6 +28,13 @@ class IndustryAnalyzing:
         return list(unique_values)
 
     def _matching_values_from_focus_column(self, focus):
+        '''
+        Matches values from the 'Focus functions of company' column to industry values.
+        :param focus: Focus function of a company
+        :return: Corresponding industry value if found, None otherwise
+        '''
+
+        # VALUES FROM THIS DICT ARE MATCHED USING CHATGPT!
         mapping_dict = {
             'many': 'e-commerce',
             'game': 'music',
@@ -67,7 +81,11 @@ class IndustryAnalyzing:
             return mapping_dict[focus]
         return
 
-    def _filling_na_values(self):
+    def _filling_na_values(self) -> None:
+        '''
+        Fills mising values of 'Industry of company' based on 'Focus functions of company' column
+        :return:
+        '''
         values_with_categorize_need = set()
         industry_names = self._unique_industry_values
         for index, row in self.df.iterrows():
@@ -79,10 +97,15 @@ class IndustryAnalyzing:
                     if focus_function in industry_names:
                         self.df.at[index, 'Industry of company'] = focus_function
                     else:
-                        self.df.at[index, 'Industry of company'] = self._matching_values_from_focus_column(focus_function)
-
+                        self.df.at[index, 'Industry of company'] = self._matching_values_from_focus_column(
+                            focus_function)
 
     def industry_success_distribution(self, pie_count=10, success=True):
+        '''
+        Analyzes the success or failure rate of companies by industry and visualizes the distribution.
+        :param pie_count: Number of industries to include in the pie chart. Default is 10.
+        :param success: If True, plots the success rate by industry. If False, plots the failure rate. Default is True.
+        '''
         self._filling_na_values()
         industry_names = self._unique_industry_values
         industry_counts = {}
@@ -106,10 +129,9 @@ class IndustryAnalyzing:
         industry_df['Success Rate'] = industry_df['Success'] / industry_df['Total']
         industry_df['Failed Rate'] = industry_df['Failed'] / industry_df['Total']
 
-
         industry_df = industry_df.sort_values(by='Total', ascending=False).head(pie_count)
 
-        plt.figure(figsize=(8,6))
+        plt.figure(figsize=(8, 6))
 
         if success:
             industry_df['Success Rate'].plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.tab20.colors)
