@@ -1,4 +1,5 @@
 from typing import List
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -10,11 +11,13 @@ class AgeDataAnalyzing:
     A class for analyzing age-related data of companies.
     '''
 
-    def __init__(self):
+    def __init__(self, dataframe: pandas.DataFrame):
         """
-        Initializes the AgeDataAnalyzing object by loading a dataset containing company age information.
+        Initializes the AgeDataAnalyzing object by loading a dataset
+        :param dataframe: A DataFrame of Data
+
         """
-        self.df = pd.read_csv(r"C:\Users\Mikayel\PycharmProjects\InternshipTask\Data\data.csv", encoding='latin-1')
+        self.df = dataframe
 
     @property
     def columns(self) -> List[str]:
@@ -100,7 +103,8 @@ class AgeDataAnalyzing:
         Fills missing values in the 'Age of company in years' column by computing average age values.
         """
         self._replace_no_info_none()
-        self.df['Age of company in years'] = self.df['Age of company in years'].fillna(self.df['Employee Count'].apply(self._getting_value))
+        self.df['Age of company in years'] = self.df['Age of company in years'].fillna(
+            self.df['Employee Count'].apply(self._getting_value))
 
     def _fill_missing_age_values_by_mean(self) -> None:
         """
@@ -122,5 +126,6 @@ class AgeDataAnalyzing:
 
 
 if __name__ == "__main__":
-    analyze = AgeDataAnalyzing()
+    analyze = AgeDataAnalyzing(
+        pd.read_csv(r"C:\Users\Mikayel\PycharmProjects\InternshipTask\Data\data.csv", encoding='latin-1'))
     analyze.filling_age_missing_values()

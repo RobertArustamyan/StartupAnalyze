@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import pandas as pd
+import pandas
 import seaborn as sns
 
 
@@ -8,18 +8,21 @@ class InternetActivity:
     A class for analyzing Internet activity of companies.
     '''
 
-    def __init__(self):
-        """
-        Initializes the AgeDataAnalyzing object by loading a dataset containing company age information.
-        """
-        self.df = pd.read_csv(r"C:\Users\Mikayel\PycharmProjects\InternshipTask\Data\data.csv", encoding='latin-1')
+    def __init__(self, dataframe: pandas.DataFrame):
+        '''
+        Initializes the InternetActivity object by loading a dataset.
+        :param dataframe: A DataFrame of Data
+        '''
+        self.df = dataframe
 
     def _seperate_data(self) -> None:
         '''
         Seperates data to success and faild parts
         '''
-        self.success_data = self.df[self.df['Dependent-Company Status'] == 'Success'] # Descriptive statistics for success companies
-        self.failed_data = self.df[self.df['Dependent-Company Status'] == 'Failed'] # Descriptive statistics for failed companies
+        self.success_data = self.df[
+            self.df['Dependent-Company Status'] == 'Success']  # Descriptive statistics for success companies
+        self.failed_data = self.df[
+            self.df['Dependent-Company Status'] == 'Failed']  # Descriptive statistics for failed companies
 
     def analyze_internet_activity(self, plot=False):
         '''
