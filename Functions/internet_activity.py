@@ -18,8 +18,8 @@ class InternetActivity:
         '''
         Seperates data to success and faild parts
         '''
-        self.success_data = self.df[self.df['Dependent-Company Status'] == 'Success']
-        self.failed_data = self.df[self.df['Dependent-Company Status'] == 'Failed']
+        self.success_data = self.df[self.df['Dependent-Company Status'] == 'Success'] # Descriptive statistics for success companies
+        self.failed_data = self.df[self.df['Dependent-Company Status'] == 'Failed'] # Descriptive statistics for failed companies
 
     def analyze_internet_activity(self, plot=False):
         '''
@@ -32,6 +32,7 @@ class InternetActivity:
         success_stats = self.success_data['Internet Activity Score'].describe()
         failed_stats = self.failed_data['Internet Activity Score'].describe()
         if plot:
+            # Plotin data using histplot
             plt.figure(figsize=(10, 6))
             sns.histplot(self.success_data['Internet Activity Score'], color='green', kde=True, label='Success')
             sns.histplot(self.failed_data['Internet Activity Score'], color='red', kde=True, label='Failed')
