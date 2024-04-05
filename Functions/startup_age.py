@@ -1,5 +1,4 @@
 from typing import List
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -11,7 +10,7 @@ class AgeDataAnalyzing:
     A class for analyzing age-related data of companies.
     '''
 
-    def __init__(self, dataframe: pandas.DataFrame):
+    def __init__(self, dataframe: pd.DataFrame):
         """
         Initializes the AgeDataAnalyzing object by loading a dataset
         :param dataframe: A DataFrame of Data
@@ -123,6 +122,8 @@ class AgeDataAnalyzing:
         self._adding_average_company_age()
         # If there is any missing Employee count and Age of company it fills age with mean value
         self._fill_missing_age_values_by_mean()
+        # Adding new column to data
+        self._adding_company_stage()
 
 
 if __name__ == "__main__":
