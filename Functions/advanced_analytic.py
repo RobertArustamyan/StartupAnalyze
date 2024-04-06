@@ -70,9 +70,9 @@ class AdvancedAnalyticBusiness:
         all_count_without_using = len(pred_false_df)
         success_percentage_without_using = success_count_without_using / all_count_without_using * 100
 
-        print('Success percentage for companies with Predictive Analytics business: {.:2f}%'.format(
+        print('Success percentage for companies with Predictive Analytics business: {:.2f}%'.format(
             success_percentage_with_using))
-        print('Success percentage for companies without Predictive Analytics business: {.:2f}%'.format(
+        print('Success percentage for companies without Predictive Analytics business: {:.2f}%'.format(
             success_percentage_without_using))
 
     def calculate_speech_percentage(self):
