@@ -21,7 +21,14 @@ class ProductService:
         unique_industries = industry_of_no_info.unique()
         return unique_industries
 
-    def _getting_pr_sv_info_for_missings(self, industry):
+    def _getting_pr_sv_info_for_missings(self, industry: str) -> str:
+        '''
+        Returns the category (product, service, or both) based on the industry.
+        :param industry: The industry of the company
+        :return: The category of the company
+        '''
+
+        # This list is generated using CHAT GPT
         industry_dict = {
             'analytics': 'Service',
             'Advertising|Marketing': 'Both',
@@ -35,6 +42,9 @@ class ProductService:
         return industry_dict[industry]
 
     def _filling_na_values(self):
+        '''
+        Fills missing values in 'Product or service company?' column based on the industry
+        '''
         self.df['Product or service company?'] = self.df['Product or service company?'].replace('No Info', np.nan)
         na_indices = self.df[self.df['Product or service company?'].isna()].index
         for index in na_indices:
@@ -43,6 +53,9 @@ class ProductService:
             self.df.loc[index, 'Product or service company?'] = pr_sv_info
 
     def plot_success_by_category(self):
+        '''
+        Plots the success rate by company category (product, service, or both)
+        '''
         self._filling_na_values()
 
         success_by_category = self.df.groupby('Product or service company?')['Dependent-Company Status']. \
