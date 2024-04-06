@@ -49,9 +49,10 @@ class AdvancedAnalyticBusiness:
         all_count_without_using = len(ml_false_df)
         success_percentage_without_using = success_count_without_using / all_count_without_using * 100
 
-        print('Success percentage for companies with Machine Learning based business: ', success_percentage_with_using)
-        print('Success percentage for companies without Machine Learning based business: ',
-              success_percentage_without_using)
+        print('Success percentage for companies with Machine Learning based business: {:.2f}%'.format(
+            success_percentage_with_using))
+        print('Success percentage for companies without Machine Learning based business: {:.2f}%'.format(
+            success_percentage_without_using))
 
     def calculate_pred_percentage(self):
         '''
@@ -69,9 +70,10 @@ class AdvancedAnalyticBusiness:
         all_count_without_using = len(pred_false_df)
         success_percentage_without_using = success_count_without_using / all_count_without_using * 100
 
-        print('Success percentage for companies with Predictive Analytics business: ', success_percentage_with_using)
-        print('Success percentage for companies without Predictive Analytics business: ',
-              success_percentage_without_using)
+        print('Success percentage for companies with Predictive Analytics business: {.:2f}%'.format(
+            success_percentage_with_using))
+        print('Success percentage for companies without Predictive Analytics business: {.:2f}%'.format(
+            success_percentage_without_using))
 
     def calculate_speech_percentage(self):
         '''
@@ -89,8 +91,10 @@ class AdvancedAnalyticBusiness:
         all_count_without_using = len(speech_false_df)
         success_percentage_without_using = success_count_without_using / all_count_without_using * 100
 
-        print('Success percentage for companies with Speech analytics business: ', success_percentage_with_using)
-        print('Success percentage for companies without Speech analytics business: ', success_percentage_without_using)
+        print('Success percentage for companies with Speech analytics business: {:.2f}%'.format(
+            success_percentage_with_using))
+        print('Success percentage for companies without Speech analytics business: {:.2f}%'.format(
+            success_percentage_without_using))
 
     def full_statistic(self):
         '''
