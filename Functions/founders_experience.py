@@ -1,10 +1,15 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
 
 pd.set_option('future.no_silent_downcasting', True)
+
+
 class FoundersExperience:
+    '''
+    A class for analyzing Founders-related data of companies.
+    '''
     def __init__(self, df: pd.DataFrame):
         '''
         Initializes the FoundersExperience object by loading a dataset.
@@ -12,7 +17,7 @@ class FoundersExperience:
         '''
         self.df = df
 
-    def _prepare_data(self) ->None:
+    def _prepare_data(self) -> None:
         '''
         Prepares data for future analysis by replacing 'Yes' with 1 and 'No' with 0
         '''
@@ -23,7 +28,16 @@ class FoundersExperience:
         ]
         replacements = {'Yes': 1, 'No': 0, 'No Info': np.nan}
         self.df[experience_columns] = self.df[experience_columns].replace(replacements)
-        self.df.dropna(subset=experience_columns, inplace=True)
+
+        # Calculate proportion of 'Yes' / ALL
+        proportions = self.df[experience_columns].apply(lambda col: col.value_counts(normalize=True).get(1, 0))
+
+        # Replaces np.nan based on the proportion
+        for col in proportions.index:
+            if proportions[col] > 0.5:
+                self.df[col] = self.df[col].fillna(1)
+            else:
+                self.df[col] = self.df[col].fillna(0)
 
     def _create_experience_column(self):
         '''
@@ -72,8 +86,6 @@ class FoundersExperience:
         plt.title('Founder Experience vs. Company Success/Failure')
         plt.legend(title='Company Status')
         plt.show()
-
-
 
 
 if __name__ == "__main__":
