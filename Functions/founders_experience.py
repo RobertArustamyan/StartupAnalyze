@@ -70,6 +70,13 @@ class FoundersExperience:
             self.df[(self.df['Dependent-Company Status'] == 'Success') & (self.df['Founder Experience'] == 3)])
         total_for_three_experience = len(self.df[(self.df['Founder Experience'] == 3)])
 
+        sns.countplot(data=self.df, x='Founder Experience', hue='Dependent-Company Status')
+        plt.xlabel('Founder Experience')
+        plt.ylabel('Count')
+        plt.title('Founder Experience vs. Company Success/Failure')
+        plt.legend(title='Company Status')
+        plt.show()
+
         percent_success_zero_experience = (success_for_zero_experience / total_for_zero_experience) * 100
         percent_success_one_experience = (success_for_one_experience / total_for_one_experience) * 100
         percent_success_two_experience = (success_for_two_experience / total_for_two_experience) * 100
@@ -79,13 +86,6 @@ class FoundersExperience:
         print("Success Rate for Founder Experience 1: {:.2f}%".format(percent_success_one_experience))
         print("Success Rate for Founder Experience 2: {:.2f}%".format(percent_success_two_experience))
         print("Success Rate for Founder Experience 3: {:.2f}%".format(percent_success_three_experience))
-
-        sns.countplot(data=self.df, x='Founder Experience', hue='Dependent-Company Status')
-        plt.xlabel('Founder Experience')
-        plt.ylabel('Count')
-        plt.title('Founder Experience vs. Company Success/Failure')
-        plt.legend(title='Company Status')
-        plt.show()
 
 
 if __name__ == "__main__":
