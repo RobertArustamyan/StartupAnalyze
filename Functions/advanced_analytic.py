@@ -96,18 +96,7 @@ class AdvancedAnalyticBusiness:
         '''
         Calculates and prints the success percentage for companies with and without each advanced analytics feature.
         '''
-        self.plot_ml_dependence()
-        self.plot_pred_dependence()
-        self.plot_speech_dependence()
+        self.calculate_ml_percentage()
+        self.calculate_pred_percentage()
+        self.calculate_speech_percentage()
 
-
-if __name__ == "__main__":
-    a = IndustryAnalyzing(
-        pd.read_csv(r"C:\Users\Mikayel\PycharmProjects\InternshipTask\Data\data.csv", encoding='latin-1'))
-    a.industry_success_distribution(plot=False)
-
-    b = AdvancedAnalyticBusiness(a.df)
-
-    b.plot_ml_dependence()
-    b.plot_pred_dependence()
-    b.plot_speech_dependence()
