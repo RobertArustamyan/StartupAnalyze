@@ -6,10 +6,12 @@ from Functions.company_industry import IndustryAnalyzing
 
 pd.set_option('future.no_silent_downcasting', True)
 
+
 class ConsumerDataFocus:
     '''
     A class for analyzing Consumer data focus of companies.
     '''
+
     def __init__(self, df: pd.DataFrame):
         '''
         Initializes the ConsumerDataFocus object by loading a dataset.
