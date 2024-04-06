@@ -101,7 +101,7 @@ class IndustryAnalyzing:
                             focus_function)
 
 
-    def industry_success_distribution(self, pie_count=10, success=True):
+    def industry_success_distribution(self, pie_count=10, success=True, plot=True):
         '''
         Analyzes the success or failure rate of companies by industry and visualizes the distribution.
         :param pie_count: Number of industries to include in the pie chart. Default is 10.
@@ -131,21 +131,20 @@ class IndustryAnalyzing:
         industry_df['Failed Rate'] = industry_df['Failed'] / industry_df['Total']
 
         industry_df = industry_df.sort_values(by='Total', ascending=False).head(pie_count)
-
-        plt.figure(figsize=(8, 6))
-
         self.df.dropna(subset=['Industry of company'], inplace=True)
+        if plot:
+            plt.figure(figsize=(8, 6))
 
-        if success:
-            industry_df['Success Rate'].plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.tab20.colors)
-            plt.title('Success Rate by Industry')
-        else:
-            industry_df['Failed Rate'].plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.tab20.colors)
-            plt.title('Failed Rate by Industry')
+            if success:
+                industry_df['Success Rate'].plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.tab20.colors)
+                plt.title('Success Rate by Industry')
+            else:
+                industry_df['Failed Rate'].plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.tab20.colors)
+                plt.title('Failed Rate by Industry')
 
-        plt.axis('equal')
-        plt.ylabel('')
-        plt.show()
+            plt.axis('equal')
+            plt.ylabel('')
+            plt.show()
 
 
 if __name__ == '__main__':
