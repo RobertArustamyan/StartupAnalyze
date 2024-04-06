@@ -100,6 +100,7 @@ class IndustryAnalyzing:
                         self.df.at[index, 'Industry of company'] = self._matching_values_from_focus_column(
                             focus_function)
 
+
     def industry_success_distribution(self, pie_count=10, success=True):
         '''
         Analyzes the success or failure rate of companies by industry and visualizes the distribution.
@@ -132,6 +133,8 @@ class IndustryAnalyzing:
         industry_df = industry_df.sort_values(by='Total', ascending=False).head(pie_count)
 
         plt.figure(figsize=(8, 6))
+
+        self.df.dropna(subset=['Industry of company'], inplace=True)
 
         if success:
             industry_df['Success Rate'].plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.tab20.colors)
