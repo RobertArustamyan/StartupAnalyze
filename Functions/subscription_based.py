@@ -14,7 +14,7 @@ class SubscriptionBased:
 
     def __init__(self, df: pd.DataFrame):
         '''
-        Initializes the ConsumerDataFocus object by loading a dataset.
+        Initializes the SubscriptionBased object by loading a dataset.
         :param df: A DataFrame of Data
         '''
         self.df = df
@@ -22,7 +22,7 @@ class SubscriptionBased:
     @property
     def _no_info_industry(self):
         '''
-        Returns unique industries with 'No Info' category for 'Focus on consumer data?' column.
+        Returns unique industries with 'No Info' category for 'Subscription based business's column.
         '''
         industry_of_no_info = self.df[self.df['Subscription based business'] == 'No Info']['Industry of company']
         unique_industries = industry_of_no_info.unique()
@@ -30,7 +30,7 @@ class SubscriptionBased:
 
     def _filling_na_values(self):
         '''
-        Fills missing values in 'Focus on consumer data?' column based on the industry
+        Fills missing values in 'Subscription based business' column
         '''
         #All industries from self._no_info_industry are not based on subscription so it is replace with False value
 
