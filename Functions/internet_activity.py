@@ -1,3 +1,5 @@
+import pprint
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -37,6 +39,7 @@ class InternetActivity:
                The tuple format is (success_stats, failed_stats), where each element is a Series containing descriptive statistics
         '''
         self._seperate_data()
+        self._fill_na_with_stage_mean()
         success_stats = self.success_data['Internet Activity Score'].describe()
         failed_stats = self.failed_data['Internet Activity Score'].describe()
         if plot:
@@ -50,6 +53,8 @@ class InternetActivity:
             plt.ylabel('Frequency')
             plt.legend()
             plt.show()
+
+        pprint.pprint(self._mean_value_by_stage)
 
         return success_stats, failed_stats
 
@@ -90,7 +95,7 @@ class InternetActivity:
 
         return mean_values
 
-    def fill_na_with_stage_mean(self):
+    def _fill_na_with_stage_mean(self):
         '''
         Fills the missing values in Internet activiyty based on Success or Fail of company and its stage.
         '''
