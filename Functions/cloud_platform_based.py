@@ -45,6 +45,9 @@ class CloudPlatformBased:
         return industry_categories[industry]
 
     def _filling_na_values(self) -> None:
+        '''
+        Fills np.nan values based on industry of company
+        '''
         self.df['Cloud or platform based serive/product?'] = (
             self.df['Cloud or platform based serive/product?'].replace('No Info', np.nan))
         self.df['Cloud or platform based serive/product?'] = (
