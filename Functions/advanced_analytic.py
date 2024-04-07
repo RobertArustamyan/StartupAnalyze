@@ -36,11 +36,30 @@ class AdvancedAnalyticBusiness:
 
         self.df.dropna(subset=['Machine Learning based business'], inplace=True)
 
+    def _new_advanced_business_column(self, treshold=1):
+        '''
+        Create a new column 'Advanced_Business' based on the presence of various advanced analytics features.
+
+        :param threshold: The threshold value for considering a business as advanced.
+        :return: None
+        '''
+
+        self.df['Advanced Business'] = 0
+
+        self.df['Advanced Business'] += self.df['Machine Learning based business'].astype(int)
+        self.df['Advanced Business'] += self.df['Predictive Analytics business'].astype(int)
+        self.df['Advanced Business'] += self.df['Speech analytics business'].astype(int)
+        self.df['Advanced Business'] += self.df['Big Data Business'].astype(int)
+
+        self.df['Advanced Business'] = self.df['Advanced Business'] >= treshold
     def calculate_ml_percentage(self):
         '''
         Calculates and prints the success percentage for companies with and without Machine Learning based business.
         '''
+
         self._preparing_data()
+
+        self._new_advanced_business_column()
 
         ml_true_df = self.df[self.df['Machine Learning based business'] == True]
         success_count_with_using = len(ml_true_df[ml_true_df['Dependent-Company Status'] == 'Success'])
