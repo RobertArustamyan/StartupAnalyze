@@ -13,7 +13,6 @@ class CompanyFocus:
         - df: A pandas DataFrame containing the company data.
         """
         self.df = df
-        self.df = df
 
     def _drop_na_values(self):
         """
