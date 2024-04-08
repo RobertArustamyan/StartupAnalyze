@@ -3,20 +3,27 @@ import pandas as pd
 
 
 class TopCompanyAnalyze:
-    def __init__(self, dataframe: pd.DataFrame):
+    def __init__(self, dataframe: pd.DataFrame) -> None:
         '''
         Initializes the TopCompanyAnalyze object by loading a dataset.
         :param dataframe: A DataFrame of Data
         '''
         self.df = dataframe
 
-    def _preparing_data(self):
+    def _preparing_data(self) -> None:
+        '''
+        Prepareing data by changin values
+        '''
         self.df['Worked in top companies'] = self.df['Worked in top companies'].replace('No Info', np.nan)
         self.df['Worked in top companies'] = self.df['Worked in top companies'].replace('Yes', True)
         self.df['Worked in top companies'] = self.df['Worked in top companies'].replace('No', False)
         self.df.dropna(subset=['Worked in top companies'], inplace=True)
 
     def analyze_data(self):
+        '''
+        Func for analyzing data by calculating success rate
+        :return:
+        '''
         self._preparing_data()
 
         success_in_big_company = len(self.df[
