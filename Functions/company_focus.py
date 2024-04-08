@@ -1,20 +1,50 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 class CompanyFocus:
     def __init__(self, df: pd.DataFrame):
+        """
+        Constructor method for the CompanyFocus class.
+
+        Parameters:
+        - df: A pandas DataFrame containing the company data.
+        """
+        self.df = df
         self.df = df
 
     def _drop_na_values(self):
+        """
+        Method to replace 'N' and '\\' with NaN in the 'Focus functions of company' column
+        and drop rows with NaN values in that column.
+        """
+
         self.df['Focus functions of company'] = self.df['Focus functions of company'].replace('N', np.nan)
         self.df['Focus functions of company'] = self.df['Focus functions of company'].replace('\\', np.nan)
         self.df = self.df.dropna(subset=['Focus functions of company'])
 
     def _normalize_value(self, value):
+        """
+        Method to normalize a string value by converting it to lowercase and stripping
+        leading and trailing whitespaces.
+
+        Parameters:
+        - value: A string value to be normalized.
+        """
         return value.lower().strip()
 
     def _standartize_value(self, value):
+        """
+        Method to standardize the values in the 'Focus functions of company' column using predefined variations.
+
+        Parameters:
+        - value: A string value to be standardized.
+
+        Returns:
+        The standardized value based on the predefined variations.
+        """
         variations = {
             'operations': 'operation',
             'marketing, sales': 'marketing & sales',
@@ -115,11 +145,47 @@ class CompanyFocus:
         return variations.get(value, value)
 
     def _modifing_data(self):
+        """
+        Method to modify the company data by applying data cleaning and standardization.
+        """
         self._drop_na_values()
         self.df['Focus functions of company'] = self.df['Focus functions of company'].apply(self._normalize_value)
         self.df['Focus functions of company'] = self.df['Focus functions of company'].apply(self._standartize_value)
-        print(self.df['Focus functions of company'].unique())
+
+    def plot_dependence(self, pie_count=10, success=True):
+        """
+         Method to plot the dependence of successful or failed companies on their focus functions.
+
+         Parameters:
+         - pie_count: Number of top focus functions to be displayed in the plot.
+         - success: Boolean indicating whether to plot for successful companies (True) or failed companies (False).
+         """
+        self._modifing_data()
+        focus_counts = {}
+        focuses = self.df['Focus functions of company'].unique()
+        for focus in focuses:
+            focus_counts[focus] = {'Success' : 0, 'Failed': 0}
+        for index,row in self.df.iterrows():
+            focus = row['Focus functions of company']
+            status = row['Dependent-Company Status']
+            focus_counts[focus][status] += 1
+
+        focus_df = pd.DataFrame(focus_counts).T
+
+        if success:
+            data = focus_df['Success'].sort_values(ascending=False)[:pie_count]
+            sns.barplot(x=data.values, y=data.index)
+            plt.title('Top {} Focus Functions of Successful Companies'.format(pie_count))
+        else:
+            data = focus_df['Failed'].sort_values(ascending=False)[:pie_count]
+            sns.barplot(x=data.values, y=data.index)
+            plt.title('Top {} Focus Functions of Failed Companies'.format(pie_count))
+        plt.xlabel('Count')
+        plt.ylabel('Focus Functions')
+        plt.show()
+
+
 
 if __name__ == '__main__':
     focus = CompanyFocus(pd.read_csv('../Data/ml_code_data.csv', encoding='latin-1'))
-    focus._modifing_data()
+    focus.plot_dependence(success=False)

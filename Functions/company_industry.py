@@ -150,4 +150,4 @@ class IndustryAnalyzing:
 if __name__ == '__main__':
     a = IndustryAnalyzing(
         pd.read_csv(r"C:\Users\Mikayel\PycharmProjects\InternshipTask\Data\data.csv", encoding='latin-1'))
-    a.industry_success_distribution()
+    a.industry_success_distribution(success=False)
