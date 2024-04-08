@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Functions.company_industry &mdash; Startup Companies Analyze 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Startup Companies Analyze
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">InternshipTask</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Startup Companies Analyze</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Functions.company_industry</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Functions.company_industry</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="IndustryAnalyzing">
+<a class="viewcode-back" href="../../Functions.html#Functions.company_industry.IndustryAnalyzing">[docs]</a>
+<span class="k">class</span> <span class="nc">IndustryAnalyzing</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A class for analyzing industry-related data of companies.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Initializes the IndustryAnalyzing object by loading a dataset.</span>
+<span class="sd">        :param dataframe: A DataFrame of Data</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">dataframe</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_unique_industry_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">         Returns a list of unique industry values from the &#39;Industry of company&#39; column.</span>
+<span class="sd">         &#39;&#39;&#39;</span>
+        <span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">filtered_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Industry of company&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">filtered_df</span><span class="p">[</span><span class="s1">&#39;Industry of company&#39;</span><span class="p">]:</span>
+            <span class="n">industries</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+            <span class="n">industries</span> <span class="o">=</span> <span class="p">[</span><span class="n">industry</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">industry</span> <span class="ow">in</span> <span class="n">industries</span><span class="p">]</span>
+            <span class="n">unique_values</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">industries</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">unique_values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_matching_values_from_focus_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">focus</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Matches values from the &#39;Focus functions of company&#39; column to industry values.</span>
+<span class="sd">        :param focus: Focus function of a company</span>
+<span class="sd">        :return: Corresponding industry value if found, None otherwise</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># VALUES FROM THIS DICT ARE MATCHED USING CHATGPT!</span>
+        <span class="n">mapping_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;many&#39;</span><span class="p">:</span> <span class="s1">&#39;e-commerce&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;game&#39;</span><span class="p">:</span> <span class="s1">&#39;music&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;targeted marketing&#39;</span><span class="p">:</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;enterprise&#39;</span><span class="p">:</span> <span class="s1">&#39;energy&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;risk&#39;</span><span class="p">:</span> <span class="s1">&#39;career / job search&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;travel planning&#39;</span><span class="p">:</span> <span class="s1">&#39;analytics&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;marketing,sales&#39;</span><span class="p">:</span> <span class="s1">&#39;classifieds&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;merchandising, marketing&#39;</span><span class="p">:</span> <span class="s1">&#39;transportation&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;strategy&#39;</span><span class="p">:</span> <span class="s1">&#39;advertising&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;solution providing&#39;</span><span class="p">:</span> <span class="s1">&#39;network / hosting / infrastructure&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;information management&#39;</span><span class="p">:</span> <span class="s1">&#39;healthcare&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;customer retention, customer feedback&#39;</span><span class="p">:</span> <span class="s1">&#39;finance&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;conssumer web&#39;</span><span class="p">:</span> <span class="s1">&#39;telecommunications&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;marketing, strategy&#39;</span><span class="p">:</span> <span class="s1">&#39;publishing&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;crm, marketing, human resources&#39;</span><span class="p">:</span> <span class="s1">&#39;human resources (hr)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;development, marketing, and administration&#39;</span><span class="p">:</span> <span class="s1">&#39;search&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;media&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;research&#39;</span><span class="p">:</span> <span class="s1">&#39;space travel&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;web&#39;</span><span class="p">:</span> <span class="s1">&#39;marketing&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;server design&#39;</span><span class="p">:</span> <span class="s1">&#39;insurance&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;software&#39;</span><span class="p">:</span> <span class="s1">&#39;security&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;consumer web&#39;</span><span class="p">:</span> <span class="s1">&#39;cleantech&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;curated web&#39;</span><span class="p">:</span> <span class="s1">&#39;software development&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;operations&#39;</span><span class="p">:</span> <span class="s1">&#39;pharmaceuticals&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;operation&#39;</span><span class="p">:</span> <span class="s1">&#39;deals&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;database management&#39;</span><span class="p">:</span> <span class="s1">&#39;crowdfunding&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mobile app development&#39;</span><span class="p">:</span> <span class="s1">&#39;travel&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;software service&#39;</span><span class="p">:</span> <span class="s1">&#39;cloud computing&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;targeting&#39;</span><span class="p">:</span> <span class="s1">&#39;entertainment&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;social media&#39;</span><span class="p">:</span> <span class="s1">&#39;retail&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;sales &amp; marketing&#39;</span><span class="p">:</span> <span class="s1">&#39;education&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;news&#39;</span><span class="p">:</span> <span class="s1">&#39;gaming&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;sales&#39;</span><span class="p">:</span> <span class="s1">&#39;market research&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;crm&#39;</span><span class="p">:</span> <span class="s1">&#39;enterprise software&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;social network&#39;</span><span class="p">:</span> <span class="s1">&#39;hospitality&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;networking&#39;</span><span class="p">:</span> <span class="s1">&#39;mobile&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ecommerce&#39;</span><span class="p">:</span> <span class="s1">&#39;government&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;technology&#39;</span><span class="p">:</span> <span class="s1">&#39;social networking&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;games&#39;</span><span class="p">:</span> <span class="s1">&#39;food &amp; beverages&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;marketing,sales,risk,operations&#39;</span><span class="p">:</span> <span class="s1">&#39;real estate&#39;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">focus</span> <span class="ow">in</span> <span class="n">mapping_dict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mapping_dict</span><span class="p">[</span><span class="n">focus</span><span class="p">]</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">_filling_na_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fills mising values of &#39;Industry of company&#39; based on &#39;Focus functions of company&#39; column</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">values_with_categorize_need</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">industry_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unique_industry_values</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Industry of company&#39;</span><span class="p">]):</span>
+                <span class="n">focus_function</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Focus functions of company&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">focus_function</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">focus_function</span> <span class="o">=</span> <span class="n">focus_function</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="n">focus_function</span> <span class="ow">in</span> <span class="n">industry_names</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;Industry of company&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">focus_function</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;Industry of company&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matching_values_from_focus_column</span><span class="p">(</span>
+                            <span class="n">focus_function</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="IndustryAnalyzing.industry_success_distribution">
+<a class="viewcode-back" href="../../Functions.html#Functions.company_industry.IndustryAnalyzing.industry_success_distribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">industry_success_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pie_count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Analyzes the success or failure rate of companies by industry and visualizes the distribution.</span>
+<span class="sd">        :param pie_count: Number of industries to include in the pie chart. Default is 10.</span>
+<span class="sd">        :param success: If True, plots the success rate by industry. If False, plots the failure rate. Default is True.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filling_na_values</span><span class="p">()</span>
+        <span class="n">industry_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unique_industry_values</span>
+        <span class="n">industry_counts</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">filtered_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Industry of company&#39;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">industry</span> <span class="ow">in</span> <span class="n">industry_names</span><span class="p">:</span>
+            <span class="n">industry_counts</span><span class="p">[</span><span class="n">industry</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Success&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Failed&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">filtered_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">industries</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Industry of company&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Dependent-Company Status&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">industry</span> <span class="ow">in</span> <span class="n">industries</span><span class="p">:</span>
+                <span class="n">industry</span> <span class="o">=</span> <span class="n">industry</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="n">industry_counts</span><span class="p">[</span><span class="n">industry</span><span class="p">][</span><span class="n">status</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">industry_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">industry_counts</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c1"># Calculate proportions</span>
+        <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Failed&#39;</span><span class="p">]</span>
+        <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Success Rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span>
+        <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Failed Rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Failed&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span>
+
+        <span class="n">industry_df</span> <span class="o">=</span> <span class="n">industry_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">pie_count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Industry of company&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+                <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Success Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab20</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Success Rate by Industry&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">industry_df</span><span class="p">[</span><span class="s1">&#39;Failed Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab20</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Failed Rate by Industry&#39;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">IndustryAnalyzing</span><span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Mikayel\PycharmProjects\InternshipTask\Data\data.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin-1&#39;</span><span class="p">))</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">industry_success_distribution</span><span class="p">(</span><span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robert Arustamyan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
