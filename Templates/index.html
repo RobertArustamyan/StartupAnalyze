@@ -68,7 +68,7 @@
     </style>
 </head>
 <body>
-<form onsubmit="return false">
+<form action="/predict" method="POST">
     <div class="input">
         <label for="IAS">Internet activity score</label>
         <input id="IAS" name="IAS" type="number" required>
@@ -99,9 +99,16 @@
         <input id="SBB" name="SBB" type="checkbox">
     </div>
 
-    <div class="input">
-        <label for="COPBP">Cloud or platform based product</label>
-        <input id="COPBP" name="COPBP" type="text" required>
+    <div class="select">
+        <label for="COPB">Clod or Platform based</label>
+
+        <select name="COPB" id="COPB" required>
+            <option value="" selected>Select Type</option>
+            <option value="1">Cloud</option>
+            <option value="2">Platform</option>
+            <option value="3">Both</option>
+            <option value="0">None</option>
+        </select>
     </div>
 
     <div class="checkbox">
@@ -129,8 +136,8 @@
 
         <select name="VentureType" id="VentureType" required>
             <option value="" selected>Select Type</option>
-            <option value="B2C">B2C</option>
-            <option value="B2B">B2B</option>
+            <option value="0">B2C</option>
+            <option value="1">B2B</option>
         </select>
     </div>
 
@@ -140,31 +147,92 @@
     </div>
 
     <!--   FOCUS FUNCTIONS OF COMPANY'S ...   -->
+    <div class="select">
+        <label for="FocusFonction">Focus Function of Company</label>
 
+        <select name="FocusFonction" id="FocusFonction" required>
+            <option value="" selected>Select Type</option>
+            <option value="0">operation</option>
+            <option value="1">marketing & sales</option>
+            <option value="2">analytics</option>
+            <option value="3">research</option>
+            <option value="4">computing</option>
+            <option value="5">marketing</option>
+            <option value="6">technology</option>
+            <option value="7">database management</option>
+            <option value="8">solution providing</option>
+            <option value="9">social media</option>
+            <option value="10">targeted marketing</option>
+            <option value="11">community betterment</option>
+            <option value="12">strategy</option>
+            <option value="13">software</option>
+            <option value="14">data integration</option>
+            <option value="15">security</option>
+            <option value="16">sales</option>
+            <option value="17">risk</option>
+            <option value="18">marketing, web analytics</option>
+            <option value="19">strategy, operations, finacial planning</option>
+            <option value="20">data collection</option>
+            <option value="21">education</option>
+            <option value="22">application</option>
+            <option value="23">analytic</option>
+            <option value="24">consumer behaviour</option>
+            <option value="25">customer service</option>
+            <option value="26">retail</option>
+            <option value="27">data visualization</option>
+            <option value="28">service</option>
+            <option value="29">marketing, technology, finance & accounting, customer service</option>
+            <option value="30">computing, training</option>
+            <option value="31">operations, marketing</option>
+            <option value="32">social advertising</option>
+            <option value="33">development, marketing, and administration</option>
+            <option value="34">information technology</option>
+            <option value="35">web</option>
+            <option value="36">web development</option>
+            <option value="37">content creation</option>
+            <option value="38">recommendation system</option>
+            <option value="39">marketing,sales,risk,operations</option>
+            <option value="40">development tool</option>
+            <option value="41">tool</option>
+            <option value="42">management</option>
+            <option value="43">energy management</option>
+            <option value="44">multiple</option>
+            <option value="45">games</option>
+            <option value="46">marketing, customer targeting</option>
+            <option value="47">entertainment</option>
+            <option value="48">search engine optimization</option>
+            <option value="49">marketing, strategy</option>
+            <option value="50">customer relationship management</option>
+            <option value="51">travel</option>
+            <option value="52">media</option>
+            <option value="53">mobile technology</option>
+            <option value="54">behavioral analysis</option>
+            <option value="55">finance</option>
+            <option value="56">network technology</option>
+            <option value="57">gaming</option>
+            <option value="58">search engine</option>
+            <option value="59">music</option>
+            <option value="60">cloud technology</option>
+            <option value="61">ecommerce</option>
+            <option value="62">globalization</option>
+            <option value="63">location-based services</option>
+            <option value="64">mobile applications</option>
+            <option value="65">network optimization</option>
+            <option value="66">targeted advertising</option>
+            <option value="67">reporting</option>
+            <option value="68">big data</option>
+            <option value="69">pricing strategy</option>
+            <option value="70">application development</option>
+            <option value="71">revenue optimization</option>
+            <option value="72">enterprise solutions</option>
+            <option value="73">billing management</option>
+            <option value="74">server management</option>
+            <option value="75">production & sales</option>
+        </select>
+    </div>
 
     <button onclick="submitForm()" type="submit">Submit</button>
 </form>
 
-<script>
-    const form = document.querySelector('form');
-
-    const submitForm = () => {
-        if (form.checkValidity()) {
-            const dataToSend = {};
-
-            for (const el of form.elements) {
-                if (el.name) {
-                    dataToSend[el.name] = el.value;
-
-                    if (el.type === 'checkbox') {
-                        dataToSend[el.name] = el.checked;
-                    }
-                }
-            }
-            // ESI PETQA UXARKES DZYADZ //
-            console.log('dataToSend => ', dataToSend);
-        }
-    }
-</script>
 </body>
 </html>
