@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><Title> Dir</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 1rem;
+            font-weight: 400;
+            color-scheme: dark light;
+        }
+
+        body {
+            background: linear-gradient(30deg, #193325, #509151)
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 72%;
+            margin: 1rem auto;
+            padding: 1rem 2.5rem;
+            background-color: #355135;
+            border-radius: 1rem;
+
+            .input {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.5rem;
+
+                input {
+                    width: 100%;
+                    padding: 0.25rem;
+                }
+            }
+
+            .checkbox, .select {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.5rem;
+            }
+
+            button {
+                padding: 0.75rem 1rem;
+                background-color: #1d551d;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.2s;
+                border-radius: 1rem;
+
+                &:hover {
+                    background-color: #174317;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+<form onsubmit="return false">
+    <div class="input">
+        <label for="IAS">Internet activity score</label>
+        <input id="IAS" name="IAS" type="number" required>
+    </div>
+
+    <div class="checkbox">
+        <label for="HTTSG">Has the team size grown</label>
+        <input id="HTTSG" name="HTTSG" type="checkbox">
+    </div>
+
+    <div class="checkbox">
+        <label for="WITC">Worked in top companies</label>
+        <input id="WITC" name="WITC" type="checkbox">
+    </div>
+
+    <div class="input">
+        <label for="FE">Founder experience</label>
+        <input id="FE" name="FE" type="number" min="0" max="3" required>
+    </div>
+
+    <div class="checkbox">
+        <label for="FOCD">Focus on consumer data</label>
+        <input id="FOCD" name="FOCD" type="checkbox">
+    </div>
+
+    <div class="checkbox">
+        <label for="SBB">Subscription based business</label>
+        <input id="SBB" name="SBB" type="checkbox">
+    </div>
+
+    <div class="input">
+        <label for="COPBP">Cloud or platform based product</label>
+        <input id="COPBP" name="COPBP" type="text" required>
+    </div>
+
+    <div class="checkbox">
+        <label for="MLBB">Machine learning based business</label>
+        <input id="MLBB" name="MLBB" type="checkbox">
+    </div>
+
+    <div class="checkbox">
+        <label for="PAB">Predictive analytics business</label>
+        <input id="PAB" name="PAB" type="checkbox">
+    </div>
+
+    <div class="checkbox">
+        <label for="SAB">Speech analytics business</label>
+        <input id="SAB" name="SAB" type="checkbox">
+    </div>
+
+    <div class="checkbox">
+        <label for="BDB">Big data business</label>
+        <input id="BDB" name="BDB" type="checkbox">
+    </div>
+
+    <div class="select">
+        <label for="VentureType">Venture Type</label>
+
+        <select name="VentureType" id="VentureType" required>
+            <option value="" selected>Select Type</option>
+            <option value="B2C">B2C</option>
+            <option value="B2B">B2B</option>
+        </select>
+    </div>
+
+    <div class="checkbox">
+        <label for="CA">Company awards</label>
+        <input id="CA" name="CA" type="checkbox">
+    </div>
+
+    <!--   FOCUS FUNCTIONS OF COMPANY'S ...   -->
+
+
+    <button onclick="submitForm()" type="submit">Submit</button>
+</form>
+
+<script>
+    const form = document.querySelector('form');
+
+    const submitForm = () => {
+        if (form.checkValidity()) {
+            const dataToSend = {};
+
+            for (const el of form.elements) {
+                if (el.name) {
+                    dataToSend[el.name] = el.value;
+
+                    if (el.type === 'checkbox') {
+                        dataToSend[el.name] = el.checked;
+                    }
+                }
+            }
+            // ESI PETQA UXARKES DZYADZ //
+            console.log('dataToSend => ', dataToSend);
+        }
+    }
+</script>
+</body>
+</html>
