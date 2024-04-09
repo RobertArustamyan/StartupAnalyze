@@ -36,7 +36,7 @@ class InternetActivity:
         Analyzes the internet activity scores of success and failed companies
         :param plot:A flag indicating whether to plot the distribution of internet activity scores. Default is False
         :return:A tuple containing the descriptive statistics of internet activity scores for success and failed companies
-               The tuple format is (success_stats, failed_stats), where each element is a Series containing descriptive statistics
+        :return: The tuple format is (success_stats, failed_stats), where each element is a Series containing descriptive statistics
         '''
         self._seperate_data()
         self._fill_na_with_stage_mean()
