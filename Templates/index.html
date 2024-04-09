@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><Title> Dir</title>
+    <title>Startup Success Prediction</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -63,6 +63,12 @@
                 &:hover {
                     background-color: #174317;
                 }
+            }
+
+            #prediction {
+                text-align: center;
+                font-size: 20px;
+                font-weight: bold;
             }
         }
     </style>
@@ -232,6 +238,9 @@
     </div>
 
     <button onclick="submitForm()" type="submit">Submit</button>
+    {% if prediction %}
+    <p id="prediction">Prediction: {{ prediction }}</p>
+    {% endif %}
 </form>
 
 </body>
