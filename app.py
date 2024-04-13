@@ -9,7 +9,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
+# After button push works function below
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def predict():
         ventrue_type = int(request.form['VentureType'])
         cloud_or_platform = int(request.form['COPB'])
         focus = int(request.form['FocusFonction'])
-
+        # For Checkboxes from page
         data = pd.DataFrame({
             'Internet Activity Score': [internet_activity],
             'Has the team size grown': [team_size_grown],
@@ -52,7 +52,7 @@ def predict():
             'Focus functions of company': [focus]
         })
         data['Founder Experience'] = data['Founder Experience'].astype('int32')
-
+        # Prdiction
         prediction_one = rf_model.predict(data)
         prediction_two = dr_model.predict(data)
 
